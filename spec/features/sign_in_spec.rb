@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'signing in', type: :feature do
-  it 'kicks you out with a bad password', driver: :poltergeist do
+  it 'kicks you out with a bad password' do
     visit 'http://learn.livemocha.com'
     fill_in 'Email address', with: 'sxu@rosettastone.com'
     fill_in 'Password', with: 'badpassssssss'
