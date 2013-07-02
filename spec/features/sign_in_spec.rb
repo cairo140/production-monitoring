@@ -1,19 +1,22 @@
 require 'spec_helper'
+require 'digest/md5'
 
-describe 'signing in', type: :feature do
+describe 'shows the forgot password link', type: :feature do
   it 'kicks you out with a bad password' do
-    visit 'http://learn.livemocha.com'
-    fill_in 'Email address', with: 'sxu@rosettastone.com'
-    fill_in 'Password', with: 'badpassssssss'
+    visit 'http://github.com'
     click_on 'Sign in'
-    page.should have_content 'Incorrect password'
+    # todo: improve on this so it doesn't rely on a css selector
+    within '#login' do
+      fill_in 'Username or Email', with: Digest::MD5.hexdigest(rand.to_s)[0,8]
+      fill_in 'Password', with: 'notmypassword'
+      click_on 'Sign in'
+    end
+    page.should have_content 'Incorrect username or password.'
   end
 
-  it 'lets you in with a good password' do
-    visit 'http://learn.livemocha.com'
-    fill_in 'Email address', with: 'sxu@rosettastone.com'
-    fill_in 'Password', with: 'password'
+  it 'has a forgot password link' do
+    visit 'http://github.com'
     click_on 'Sign in'
-    page.should have_content 'Start Page'
+    page.should have_link '(forgot password)'
   end
 end
