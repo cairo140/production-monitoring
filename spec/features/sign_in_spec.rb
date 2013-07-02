@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'digest/md5'
 
-describe 'shows the forgot password link', type: :feature do
+describe 'logging into github', type: :feature do
   it 'kicks you out with a bad password' do
     visit 'http://github.com'
     click_on 'Sign in'
